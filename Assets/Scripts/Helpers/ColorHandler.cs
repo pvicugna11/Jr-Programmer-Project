@@ -7,6 +7,11 @@ public class ColorHandler : MonoBehaviour
 {
     public Renderer TintRenderer;
     public int TintMaterialSlot;
+
+    void Start()
+    {
+        SetColor(MenuUIHandler.CubeColor);
+    }
     
     public void SetColor(Color c)
     {

@@ -10,18 +10,29 @@ using UnityEngine.SceneManagement;
 public class MenuUIHandler : MonoBehaviour
 {
     public ColorPicker ColorPicker;
-    public static Color cubeColor = new Color(0f, 1f, 1f, 1f);
+    public static Color CubeColor;
 
     public void NewColorSelected(Color color)
     {
-        cubeColor = color;
+        CubeColor = color;
     }
     
     private void Start()
     {
+        LoadCubeColor();
         ColorPicker.Init();
         //this will call the NewColorSelected function when the color picker have a color button clicked.
         ColorPicker.onColorChanged += NewColorSelected;
+    }
+
+    private void LoadCubeColor()
+    {
+        float r = PlayerPrefs.GetFloat("RED", 0f);
+        float g = PlayerPrefs.GetFloat("GREEN", 1f);
+        float b = PlayerPrefs.GetFloat("BLUE", 1f);
+        float a = PlayerPrefs.GetFloat("ALPHA", 1f);
+
+        CubeColor = new Color(r, g, b, a);
     }
 
     public void StartNew()
@@ -31,12 +42,16 @@ public class MenuUIHandler : MonoBehaviour
 
     public void SaveColorClicked()
     {
-
+        PlayerPrefs.SetFloat("RED", CubeColor.r);
+        PlayerPrefs.SetFloat("GREEN", CubeColor.g);
+        PlayerPrefs.SetFloat("BLUE", CubeColor.b);
+        PlayerPrefs.SetFloat("ALPHA", CubeColor.a);
+        PlayerPrefs.Save();
     }
 
     public void LoadColorCliked()
     {
-
+        LoadCubeColor();
     }
 
     public void Exit()
