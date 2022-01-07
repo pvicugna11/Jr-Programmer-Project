@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 3
+  ProductionSpeedToMultiply: 2
 --- !u!1 &95612405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2395,6 +2396,10 @@ PrefabInstance:
     - target: {fileID: 1870459146737535872, guid: 2c711c53ad47b83409ac3aa71ef70768, type: 3}
       propertyPath: m_Name
       value: DropPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870459146737535872, guid: 2c711c53ad47b83409ac3aa71ef70768, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4745332140793179754, guid: 2c711c53ad47b83409ac3aa71ef70768, type: 3}
       propertyPath: m_LocalPosition.x
