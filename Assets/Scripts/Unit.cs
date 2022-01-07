@@ -38,7 +38,7 @@ public abstract class Unit : MonoBehaviour,
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (m_Target != null)
         {
