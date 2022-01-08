@@ -10,8 +10,9 @@ public class ProductivityUnit : Unit
     private Building m_CurrentTransportTarget;
     private ResourcePile rp = new ResourcePile();
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         ProductionSpeedInit = rp.ProductionSpeed;
     }
 

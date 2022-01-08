@@ -13,11 +13,11 @@ using UnityEditor;
 public class MenuUIHandler : MonoBehaviour
 {
     public ColorPicker ColorPicker;
-    public static Color CubeColor;
 
     public void NewColorSelected(Color color)
     {
-        CubeColor = color;
+        // add code here to handle when a color is selected
+        MainManager.Instance.TeamColor = color;
     }
     
     private void Start()
@@ -35,7 +35,7 @@ public class MenuUIHandler : MonoBehaviour
         float b = PlayerPrefs.GetFloat("BLUE", 1f);
         float a = PlayerPrefs.GetFloat("ALPHA", 1f);
 
-        CubeColor = new Color(r, g, b, a);
+        MainManager.Instance.TeamColor = new Color(r, g, b, a);
     }
 
     public void StartNew()
@@ -45,10 +45,10 @@ public class MenuUIHandler : MonoBehaviour
 
     public void SaveColorClicked()
     {
-        PlayerPrefs.SetFloat("RED", CubeColor.r);
-        PlayerPrefs.SetFloat("GREEN", CubeColor.g);
-        PlayerPrefs.SetFloat("BLUE", CubeColor.b);
-        PlayerPrefs.SetFloat("ALPHA", CubeColor.a);
+        PlayerPrefs.SetFloat("RED", MainManager.Instance.TeamColor.r);
+        PlayerPrefs.SetFloat("GREEN", MainManager.Instance.TeamColor.g);
+        PlayerPrefs.SetFloat("BLUE", MainManager.Instance.TeamColor.b);
+        PlayerPrefs.SetFloat("ALPHA", MainManager.Instance.TeamColor.a);
         PlayerPrefs.Save();
     }
 
@@ -59,6 +59,7 @@ public class MenuUIHandler : MonoBehaviour
 
     public void Exit()
     {
+// 条件付きコンパイル
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else
