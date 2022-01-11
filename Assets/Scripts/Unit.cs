@@ -24,7 +24,7 @@ public abstract class Unit : MonoBehaviour,
         m_Agent.angularSpeed = 999;
     }
 
-    protected virtual void Start()
+    private void Start()
     {
         if (MainManager.Instance)
         {
@@ -41,7 +41,7 @@ public abstract class Unit : MonoBehaviour,
         }
     }
 
-    protected virtual void Update()
+    private void Update()
     {
         if (m_Target != null)
         {

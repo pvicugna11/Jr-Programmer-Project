@@ -4,48 +4,43 @@ using UnityEngine;
 
 public class ProductivityUnit : Unit
 {
-    public float ProductionSpeed = 1f;
-    private float ProductionSpeedInit;
+    private ResourcePile m_CurrentPile = null;
+    public float ProductivityMultiplier = 2;
 
-    private Building m_CurrentTransportTarget;
-    private ResourcePile rp = new ResourcePile();
-
-    protected override void Start()
+    public override void GoTo(Building target)
     {
-        base.Start();
-        ProductionSpeedInit = rp.ProductionSpeed;
-    }
-
-    protected override void Update()
-    {
-        if (m_Target != m_CurrentTransportTarget || !m_Target)
-        {
-            rp.ProductionSpeed = ProductionSpeedInit;
-            m_CurrentTransportTarget = m_Target;
-        }
-
-        if (m_Target)
-        {
-            float distance = Vector3.Distance(m_Target.transform.position, transform.position);
-            if (distance < 2.0f)
-            {
-                m_Agent.isStopped = true;
-                BuildingInRange();
-            }
-        }
+        ResetProductivity();
+        base.GoTo(target);
     }
 
     // We override the GoTo function to remove the current transport target, as any go to order will cancel the transport
     public override void GoTo(Vector3 position)
     {
+        ResetProductivity();
         base.GoTo(position);
-        m_CurrentTransportTarget = null;
     }
     
     protected override void BuildingInRange()
     {
-        rp = (m_Target is ResourcePile resourcePile) ? resourcePile : rp;
-        rp.ProductionSpeed = ProductionSpeed;
+        if (!m_CurrentPile)
+        {
+            ResourcePile pile = m_Target as ResourcePile;
+
+            if (pile)
+            {
+                m_CurrentPile = pile;
+                m_CurrentPile.ProductionSpeed *= ProductivityMultiplier;
+            }
+        }
+    }
+
+    private void ResetProductivity()
+    {
+        if (m_CurrentPile != null)
+        {
+            m_CurrentPile.ProductionSpeed /= ProductivityMultiplier;
+            m_CurrentPile = null;
+        }
     }
     
     //Override all the UI function to give a new name and display what it is currently transporting
